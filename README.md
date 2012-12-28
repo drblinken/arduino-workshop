@@ -1,3 +1,6 @@
+arduino-workshop
+================
+
 These are Example Arduino Sketches for the Workshop
 ["Programming Arduino"](http://drblinken.github.com/drblinken/bentos/arduino.html)
 
