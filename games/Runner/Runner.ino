@@ -1,7 +1,9 @@
 /*
+Fast and Dirty by Julius Seltenheim, Mail@Julius-Seltenheim.com
+
 Die linken 3 Pixel sind der Bereich, in dem der Spieler sich mit den Knöpfen
-bewegen kann und von rechts kommen Objekte reingeflogen, denen er ausweichen 
-muss. 
+bewegen kann und von rechts kommen Objekte reingeflogen, denen er ausweichen
+muss.
 */
 
 #define BOARDBK
@@ -21,11 +23,11 @@ int possibility = 40;
 boolean gameOver = false;
 
 
-void setup() { 
+void setup() {
     pinMode(buttonPin1,INPUT);
     for (int i=0;i<numberleds;i++)
-      pinMode(pins[i], OUTPUT); 
-   
+      pinMode(pins[i], OUTPUT);
+
    enemies[0] = -1;
    enemies[1] = -1;
    enemies[2] = -1;
@@ -33,14 +35,14 @@ void setup() {
 }
 
 void loop() {
-  
+
   if(gameOver) {
     fillScreen();
     return;
   }
-  
+
   long curMillis = millis();
-  
+
   time += curMillis - lastMillis;
   lastMillis = curMillis;
   if(time >= actionAt) {
@@ -52,7 +54,7 @@ void loop() {
     time = 0;
     possibility++;
   }
-  
+
   checkButton();
 
   if(buttonState1 == ON && lastButtonState == OFF) {
@@ -60,13 +62,13 @@ void loop() {
       playerPos += 4;
     }
   }
-  
+
   if(buttonState2 == ON && lastButtonState2 == OFF) {
     if(playerPos != 3) {
       playerPos -= 4;
     }
   }
-  
+
   clearScreen();
   digitalWrite(pins[playerPos],ON);
   if(enemies[0] != -1)
@@ -88,51 +90,51 @@ void checkEnemyCreation() {
 void moveEnemies() {
  if(enemies[0] != -1) {
    enemies[0] += 1;
-   
+
    if(enemies[0] == playerPos) {
-    gameOver = true; 
+    gameOver = true;
    }
    if(enemies[0] > 3) {
-    enemies[0] = -1; 
+    enemies[0] = -1;
    }
- } 
- 
+ }
+
   if(enemies[1] != -1) {
    enemies[1] += 1;
-   
+
    if(enemies[1] == playerPos) {
-    gameOver = true; 
+    gameOver = true;
    }
    if(enemies[1] > 7) {
-    enemies[1] = -1; 
+    enemies[1] = -1;
    }
- } 
- 
+ }
+
   if(enemies[2] != -1) {
    enemies[2] += 1;
-   
+
    if(enemies[2] == playerPos) {
-    gameOver = true; 
+    gameOver = true;
    }
    if(enemies[2] > 11) {
-    enemies[2] = -1; 
+    enemies[2] = -1;
    }
- } 
+ }
 }
 
 void createEnemy() {
      int freeCount = 0;
-    if(enemies[0] == -1 && enemies[1] != 4) freeCount++; 
-    if(enemies[1] == -1 && !(enemies[0] != 0 && enemies[2] != 8)) freeCount++; 
-    if(enemies[2] == -1 && enemies[1] != 4) freeCount++; 
-    
+    if(enemies[0] == -1 && enemies[1] != 4) freeCount++;
+    if(enemies[1] == -1 && !(enemies[0] != 0 && enemies[2] != 8)) freeCount++;
+    if(enemies[2] == -1 && enemies[1] != 4) freeCount++;
+
     if(freeCount != 0) {
 
       boolean success = false;
       while(!success) {
       int val = rand() % 3;
       if(enemies[val] == -1) {
-        enemies[val] = val*4; 
+        enemies[val] = val*4;
         success = true;
       }
       }

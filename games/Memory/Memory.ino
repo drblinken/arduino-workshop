@@ -1,14 +1,16 @@
 
 /*
-Am Anfang jeder Spielrunde blinkt ein Pattern auf, das es zu finden gilt. 
-Danach wird alle paar Sekunden ein Pattern angezeigt. Ist es das gesuchte, 
+Fast and Dirty by Julius Seltenheim, Mail@Julius-Seltenheim.com
+
+Am Anfang jeder Spielrunde blinkt ein Pattern auf, das es zu finden gilt.
+Danach wird alle paar Sekunden ein Pattern angezeigt. Ist es das gesuchte,
 muss der Spieler auf seinen Knopf drücken.
 
-Bei richtiger Antwort gibt es einen Punkt, sonst kriegt der Gegner einen. 
-(Der Pfeil, der nach Knopfdruck erscheint, zeigt an, von welchem Spieler 
-das Drücken gewertet wurde) 
+Bei richtiger Antwort gibt es einen Punkt, sonst kriegt der Gegner einen.
+(Der Pfeil, der nach Knopfdruck erscheint, zeigt an, von welchem Spieler
+das Drücken gewertet wurde)
 
-Nach 5 Runden ist das Spiel vorbei und der Gewinner wird ermittelt. 
+Nach 5 Runden ist das Spiel vorbei und der Gewinner wird ermittelt.
 */
 #define BOARDBK
 #include "pins.h"
@@ -43,10 +45,10 @@ int time = 0;
 long lastMillis;
 int actionAt = 2000;
 
-void setup() { 
+void setup() {
   pinMode(buttonPin1,INPUT);
   for (int i=0;i<numberleds;i++)
-    pinMode(pins[i], OUTPUT); 
+    pinMode(pins[i], OUTPUT);
 
   randomSeed(analogRead(2));
   lastMillis = millis();
@@ -57,7 +59,7 @@ void setupPattern() {
   int count = 0;
   while (count < patternCount) {
     int* s = createPattern();
-    
+
     //check if scheme exist
     for(int i = 0; i < count; i++) {
       if(patternEqual(s,&allPattern[i][0])) {
@@ -71,7 +73,7 @@ void setupPattern() {
 void copyPattern(int* from, int*to) {
  for(int i = 0; i < 12; i++) {
   to[i] = from[i];
- } 
+ }
 }
 
 int* createPattern() {
@@ -79,7 +81,7 @@ int* createPattern() {
   for(int i = 0; i < 12; i++) {
     if(random(100) <= 50) {
       s[i] = ON;
-    } 
+    }
     else {
       s[i] = OFF;
     }
@@ -97,8 +99,8 @@ boolean patternEqual(int* s1, int* s2) {
 
 void loop() {
 
-  checkForAction();  
-  checkButton();  
+  checkForAction();
+  checkButton();
 
   if(buttonState1 == ON && lastButtonState1 == OFF) {
     clicked = 1;
@@ -109,7 +111,7 @@ void loop() {
   if(buttonState2 == ON && lastButtonState2 == OFF) {
     clicked = 2;
     time = 10000;
-    curMode = 3;    
+    curMode = 3;
   }
 }
 
@@ -142,10 +144,10 @@ void checkForAction() {
         if(clicked == 1) score1++;
         if(clicked == 2) score2++;
         correctScreen();
-      } 
+      }
       else {
         if(clicked == 1) score2++;
-        if(clicked == 2) score1++;      
+        if(clicked == 2) score1++;
         wrongScreen();
       }
 
@@ -153,7 +155,7 @@ void checkForAction() {
 
       if(rounds == curRound++) {
         curMode = 4;
-      } 
+      }
       else {
         curMode = 5;
       }
@@ -161,7 +163,7 @@ void checkForAction() {
     if(curMode == 4) {
       if(score1 < score2) {
         arrowLeftScreen();
-      } 
+      }
       else {
         arrowRightScreen();
       }

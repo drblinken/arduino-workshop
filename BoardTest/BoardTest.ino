@@ -1,23 +1,27 @@
+/*
+Test animations for the 12 LED-Shields
+Author: Dr. Blinken
+*/
 
 // available boards BOARD0-BOARD9, BOARDBK
 #define BOARDBK
 #include "pins.h"
 
-int numberleds = 12; 
+int numberleds = 12;
 int buttonState1 = 0;    // variable for reading the pushbutton status
 int buttonState2 = 0;
 int programNumber = 0;  // variable to iterate through the programs
 int programCount = 5;
 
-void setup() { 
+void setup() {
     pinMode(buttonPin1,INPUT);
     pinMode(buttonPin2,INPUT);
     for (int i=0;i<numberleds;i++)
-      pinMode(pins[i], OUTPUT);   
+      pinMode(pins[i], OUTPUT);
 }
 
 void loop() {
-  
+
   checkButton();
   switch(programNumber) {
     case 0:
@@ -38,7 +42,7 @@ void loop() {
     case 4:
       rows();
       break;
-  }   
+  }
 
 }
 void checkButton(){
@@ -50,11 +54,11 @@ void checkButton(){
   }
 }
 void buttonAck(){
-  
+
   digitalWrite(pins[0],ON);
   digitalWrite(pins[numberleds-1],ON);
   delay(200);
-  
+
   digitalWrite(pins[0],OFF);
   digitalWrite(pins[numberleds-1],OFF);
 }
@@ -63,7 +67,7 @@ void allOff(){
     digitalWrite(pins[i],OFF);
 }
 void chase(){
-    
+
   for (int i=0;i<numberleds;i++){
     digitalWrite(pins[i],ON);
     delay(100);
@@ -71,7 +75,7 @@ void chase(){
    for (int i=0;i<numberleds;i++){
     digitalWrite(pins[i],OFF);
     delay(100);
-  } 
+  }
 }
 void blink(){
   for (int i=0;i<2;i++){
@@ -102,11 +106,11 @@ void rows(){
   allOff();
   for (int i=0;i<3;i++){
     for (int j=0;j<4;j++){
-       digitalWrite(pins[i*4+j],ON); 
+       digitalWrite(pins[i*4+j],ON);
     }
     delay(300);
     for (int j=0;j<4;j++){
-       digitalWrite(pins[i*4+j],OFF); 
+       digitalWrite(pins[i*4+j],OFF);
     }
   }
  }
