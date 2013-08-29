@@ -1,9 +1,13 @@
 #include <Arduino.h>
 #include "Dice.h"
+#include "pins.h"
 
+// use the ON/OFF abstraction from pins.h
+#define O OFF
+#define X ON
 const int numbers[][12] = {
-  {0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,1,0,0,0,0,0,0}
+  {O,O,O,O,O,O,O,O,O,O,O,O},
+  {O,O,O,O,O,X,O,O,O,O,O,O}
   // ...
 };
 

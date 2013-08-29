@@ -2,7 +2,7 @@
 Scaffold for a Dice Library
 Author: Dr. Blinken
 */
-#define BOARDBK
+#define BOARD2
 
 #include "pins.h"
 int numberleds = 12;
