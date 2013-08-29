@@ -4,7 +4,7 @@ Author: Dr. Blinken
 */
 
 // available boards BOARD0-BOARD9, BOARDBK
-#define BOARDBK
+#define BOARD2
 #include "pins.h"
 
 int numberleds = 12;
